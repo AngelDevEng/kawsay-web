@@ -15,6 +15,16 @@ export default function Header() {
   ];
 
   useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1);
+      if (hash) {
+        setActiveSection(hash);
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+
     const handleScroll = () => {
       const sections = navLinks.map(link => link.href.slice(1));
       const scrollPosition = window.scrollY + 100;
@@ -42,7 +52,10 @@ export default function Header() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('hashchange', handleHashChange);
+    };
   }, []);
 
   return (
