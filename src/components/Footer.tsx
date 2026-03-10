@@ -9,13 +9,15 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-12">
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <Image
-                src="/kawsay-logo.png"
-                alt="KAWSAY"
-                width={50}
-                height={50}
-                className="h-12 w-auto rounded-lg"
-              />
+              <div className="p-2 bg-white rounded-xl">
+                <Image
+                  src="/kawsay-logo.png"
+                  alt="KAWSAY"
+                  width={50}
+                  height={50}
+                  className="h-10 w-auto"
+                />
+              </div>
               <div>
                 <span className="text-2xl font-bold">KAWSAY</span>
                 <p className="text-xs text-white/70">SUPERFOOD SNACKS</p>
