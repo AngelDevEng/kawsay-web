@@ -19,7 +19,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           <a href="#" className="flex items-center gap-2">
             <Image
-              src="/kawsay-logo.jpeg"
+              src="/kawsay-logo.png"
               alt="KAWSAY"
               width={50}
               height={50}

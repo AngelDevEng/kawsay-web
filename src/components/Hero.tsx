@@ -47,7 +47,7 @@ export default function Hero() {
             <div className="relative">
               <div className="absolute inset-0 bg-[var(--gold)]/20 blur-2xl rounded-full"></div>
               <Image
-                src="/kawsay-logo.jpeg"
+                src="/kawsay-logo.png"
                 alt="KAWSAY - Snack Proteico"
                 width={400}
                 height={400}

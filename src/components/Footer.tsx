@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <Image
-                src="/kawsay-logo.jpeg"
+                src="/kawsay-logo.png"
                 alt="KAWSAY"
                 width={50}
                 height={50}
