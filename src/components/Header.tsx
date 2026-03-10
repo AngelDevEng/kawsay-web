@@ -18,8 +18,14 @@ export default function Header() {
     const handleScroll = () => {
       const sections = navLinks.map(link => link.href.slice(1));
       const scrollPosition = window.scrollY + 100;
+      const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
 
-      for (let i = 0; i < sections.length; i++) {
+      if (scrollPosition > pageHeight * 0.8) {
+        setActiveSection('contacto');
+        return;
+      }
+
+      for (let i = 0; i < sections.length - 1; i++) {
         const section = sections[i];
         const element = document.getElementById(section);
         
@@ -27,16 +33,9 @@ export default function Header() {
           const offsetTop = element.offsetTop;
           const offsetHeight = element.offsetHeight;
           
-          if (i === sections.length - 1) {
-            if (scrollPosition >= offsetTop - 100) {
-              setActiveSection(section);
-              break;
-            }
-          } else {
-            if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-              setActiveSection(section);
-              break;
-            }
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
           }
         }
       }
