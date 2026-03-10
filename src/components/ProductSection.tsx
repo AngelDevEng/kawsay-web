@@ -50,7 +50,7 @@ export default function ProductSection() {
   const product = {
     id: 'kawsay-pack',
     name: 'KAWSAY - Pack 4 unidades',
-    price: 0.00,
+    price: 8.00,
     image: '/kawsay-logo.png',
   };
 
