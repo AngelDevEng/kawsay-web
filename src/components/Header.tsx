@@ -19,14 +19,24 @@ export default function Header() {
       const sections = navLinks.map(link => link.href.slice(1));
       const scrollPosition = window.scrollY + 100;
 
-      for (const section of sections) {
+      for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
         const element = document.getElementById(section);
+        
         if (element) {
           const offsetTop = element.offsetTop;
           const offsetHeight = element.offsetHeight;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
+          
+          if (i === sections.length - 1) {
+            if (scrollPosition >= offsetTop - 100) {
+              setActiveSection(section);
+              break;
+            }
+          } else {
+            if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+              setActiveSection(section);
+              break;
+            }
           }
         }
       }
