@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
+import { useCart } from '@/context/CartContext';
 
 const ingredients = [
   {
@@ -41,13 +43,24 @@ const ingredients = [
   },
 ];
 
-const presentations = [
-  { size: '40g', label: 'Formato Individual', type: 'Portable' },
-  { size: '4u', label: '4 unidades', type: 'Ahorro' },
-{ size: 'S/', label: '0.00', type: 'Precio Accesible' },
-  ];
-
 export default function ProductSection() {
+  const [quantity, setQuantity] = useState(1);
+  const { addItem } = useCart();
+
+  const product = {
+    id: 'kawsay-pack',
+    name: 'KAWSAY - Pack 4 unidades',
+    price: 0.00,
+    image: '/kawsay-logo.png',
+  };
+
+  const handleAddToCart = () => {
+    addItem({
+      ...product,
+      quantity,
+    });
+  };
+
   return (
     <section id="producto" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,45 +92,65 @@ export default function ProductSection() {
 
         <div className="bg-gradient-to-r from-[var(--gold-light)]/30 to-[var(--gold)]/10 rounded-3xl p-8 md:p-12">
           <h3 className="text-2xl font-bold text-[var(--cacao)] text-center mb-8">
-            Presentaciones Disponibles
+            Producto
           </h3>
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="grid md:grid-cols-2 gap-12 items-center max-w-4xl mx-auto">
             <div className="flex justify-center">
-              <Image
-                src="/producto.jpeg"
-                alt="KAWSAY - Presentación del producto"
-                width={400}
-                height={400}
-                className="rounded-2xl shadow-xl w-full max-w-md object-contain bg-white"
-              />
+              <div className="relative">
+                <div className="absolute inset-0 bg-[var(--gold)]/20 blur-2xl rounded-full"></div>
+                <Image
+                  src="/producto.jpeg"
+                  alt="KAWSAY - Presentación del producto"
+                  width={350}
+                  height={350}
+                  className="relative z-10 rounded-2xl shadow-xl w-full max-w-sm object-contain bg-white"
+                />
+              </div>
             </div>
-            <div className="grid gap-6">
-              {presentations.map((present, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
-                >
-                  <div className="w-16 h-16 rounded-full bg-[var(--botanical)]/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-xl font-bold text-[var(--botanical)]">{present.size}</span>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-[var(--cacao)]">
-                      {present.label}
-                    </h4>
-                    <span className="inline-block px-2 py-1 bg-[var(--gold)]/20 text-[var(--gold)] text-xs font-medium rounded-full">
-                      {present.type}
-                    </span>
-                  </div>
+            
+            <div className="text-center md:text-left">
+              <h4 className="text-2xl font-bold text-[var(--cacao)] mb-2">
+                KAWSAY - Pack
+              </h4>
+              <p className="text-gray-600 mb-4">
+                Snack proteico natural con 4 unidades.
+              </p>
+              <div className="flex items-center justify-center md:justify-start gap-4 mb-6">
+                <span className="text-3xl font-bold text-[var(--botanical)]">S/ 0.00</span>
+                <span className="text-gray-400 line-through">S/ 25.00</span>
+              </div>
+              
+              <div className="flex items-center justify-center md:justify-start gap-4 mb-6">
+                <span className="text-sm text-gray-600">Cantidad:</span>
+                <div className="flex items-center gap-3 bg-white rounded-full px-4 py-2 shadow-md">
+                  <button
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="w-8 h-8 rounded-full bg-[var(--cacao)]/10 text-[var(--cacao)] flex items-center justify-center hover:bg-[var(--cacao)]/20 font-bold"
+                  >
+                    -
+                  </button>
+                  <span className="w-8 text-center font-bold text-[var(--cacao)]">{quantity}</span>
+                  <button
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="w-8 h-8 rounded-full bg-[var(--cacao)]/10 text-[var(--cacao)] flex items-center justify-center hover:bg-[var(--cacao)]/20 font-bold"
+                  >
+                    +
+                  </button>
                 </div>
-              ))}
+              </div>
+
+              <button
+                onClick={handleAddToCart}
+                className="bg-[var(--botanical)] text-white px-8 py-4 rounded-full font-semibold hover:bg-[var(--botanical-light)] transition-all hover:scale-105 shadow-lg"
+              >
+                Agregar al Carrito
+              </button>
+              
+              <p className="text-xs text-gray-500 mt-4">
+                * Empaques 100% reciclables
+              </p>
             </div>
           </div>
-        </div>
-
-        <div className="mt-12 text-center">
-          <p className="text-sm text-gray-500">
-            * Empaques 100% reciclables
-          </p>
         </div>
       </div>
     </section>
