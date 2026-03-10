@@ -81,23 +81,36 @@ export default function ProductSection() {
           <h3 className="text-2xl font-bold text-[var(--cacao)] text-center mb-8">
             Presentaciones Disponibles
           </h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            {presentations.map((present, index) => (
-              <div
-                key={index}
-                className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
-              >
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[var(--botanical)]/10 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-[var(--botanical)]">{present.size}</span>
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="flex justify-center">
+              <Image
+                src="/producto.jpeg"
+                alt="KAWSAY - Presentación del producto"
+                width={400}
+                height={400}
+                className="rounded-2xl shadow-xl w-full max-w-md object-contain bg-white"
+              />
+            </div>
+            <div className="grid gap-6">
+              {presentations.map((present, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
+                >
+                  <div className="w-16 h-16 rounded-full bg-[var(--botanical)]/10 flex items-center justify-center flex-shrink-0">
+                    <span className="text-xl font-bold text-[var(--botanical)]">{present.size}</span>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-[var(--cacao)]">
+                      {present.label}
+                    </h4>
+                    <span className="inline-block px-2 py-1 bg-[var(--gold)]/20 text-[var(--gold)] text-xs font-medium rounded-full">
+                      {present.type}
+                    </span>
+                  </div>
                 </div>
-                <h4 className="text-lg font-semibold text-[var(--cacao)] mb-1">
-                  {present.label}
-                </h4>
-                <span className="inline-block px-3 py-1 bg-[var(--gold)]/20 text-[var(--gold)] text-sm font-medium rounded-full">
-                  {present.type}
-                </span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
