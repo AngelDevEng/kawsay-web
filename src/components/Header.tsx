@@ -15,47 +15,28 @@ export default function Header() {
   ];
 
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.slice(1);
-      if (hash) {
-        setActiveSection(hash);
-      }
-    };
-
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-
-    const handleScroll = () => {
-      const sections = navLinks.map(link => link.href.slice(1));
-      const scrollPosition = window.scrollY + 100;
-      const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-
-      if (scrollPosition > pageHeight * 0.8) {
-        setActiveSection('contacto');
-        return;
-      }
-
-      for (let i = 0; i < sections.length - 1; i++) {
-        const section = sections[i];
-        const element = document.getElementById(section);
-        
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-          
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
+    const sections = navLinks.map(link => link.href.slice(1));
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+            window.history.replaceState(null, '', `#${entry.target.id}`);
           }
-        }
-      }
-    };
+        });
+      },
+      { threshold: 0.4 }
+    );
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('hashchange', handleHashChange);
-    };
+    sections.forEach((sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -81,6 +62,7 @@ export default function Header() {
                 <a
                   key={link.href}
                   href={link.href}
+                  onClick={() => setActiveSection(sectionId)}
                   className={`relative py-1 font-medium transition-colors ${
                     isActive ? 'text-[var(--cacao)]' : 'text-[var(--cacao)] hover:text-[var(--botanical)]'
                   }`}
@@ -117,10 +99,13 @@ export default function Header() {
                 <a
                   key={link.href}
                   href={link.href}
+                  onClick={() => {
+                    setActiveSection(sectionId);
+                    setIsMenuOpen(false);
+                  }}
                   className={`block py-2 font-medium ${
                     isActive ? 'text-[var(--cacao)]' : 'text-[var(--cacao)] hover:text-[var(--botanical)]'
                   }`}
-                  onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
                 </a>
