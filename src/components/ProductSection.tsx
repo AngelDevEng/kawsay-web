@@ -43,9 +43,8 @@ const ingredients = [
 
 const presentations = [
   { size: '40g', label: 'Formato Individual', type: 'Portable' },
-  { size: '4u', label: 'Pack Familiar (4 unidades)', type: 'Ahorro' },
-  { size: '24u', label: 'Display (24 unidades)', type: 'Tiendas' },
-];
+  { size: '4u', label: '4 unidades', type: 'Ahorro' },
+  ];
 
 export default function ProductSection() {
   return (
