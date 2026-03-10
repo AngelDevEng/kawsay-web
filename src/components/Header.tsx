@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   const navLinks = [
     { href: '#producto', label: 'Producto' },
@@ -12,6 +13,28 @@ export default function Header() {
     { href: '#nosotros', label: 'Nosotros' },
     { href: '#contacto', label: 'Contacto' },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navLinks.map(link => link.href.slice(1));
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetHeight = element.offsetHeight;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
@@ -29,15 +52,24 @@ export default function Header() {
           </a>
 
           <nav className="hidden md:flex gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-[var(--cacao)] hover:text-[var(--botanical)] font-medium transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const sectionId = link.href.slice(1);
+              const isActive = activeSection === sectionId;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`relative py-1 font-medium transition-colors ${
+                    isActive ? 'text-[var(--cacao)]' : 'text-[var(--cacao)] hover:text-[var(--botanical)]'
+                  }`}
+                >
+                  {link.label}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--cacao)] rounded-full"></span>
+                  )}
+                </a>
+              );
+            })}
           </nav>
 
           <button
@@ -56,16 +88,22 @@ export default function Header() {
 
         {isMenuOpen && (
           <nav className="md:hidden pb-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="block py-2 text-[var(--cacao)] hover:text-[var(--botanical)] font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const sectionId = link.href.slice(1);
+              const isActive = activeSection === sectionId;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`block py-2 font-medium ${
+                    isActive ? 'text-[var(--cacao)]' : 'text-[var(--cacao)] hover:text-[var(--botanical)]'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
         )}
       </div>

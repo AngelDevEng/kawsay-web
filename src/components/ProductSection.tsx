@@ -44,6 +44,7 @@ const ingredients = [
 const presentations = [
   { size: '40g', label: 'Formato Individual', type: 'Portable' },
   { size: '4u', label: '4 unidades', type: 'Ahorro' },
+{ size: 'S/', label: '0.00', type: 'Precio Accesible' },
   ];
 
 export default function ProductSection() {
