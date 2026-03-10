@@ -71,7 +71,7 @@ export default function Hero() {
             <div className="text-gray-600">Azúcar Refinada</div>
           </div>
           <div className="p-4">
-            <div className="text-3xl font-bold text-[var(--botanical)]">12g</div>
+            <div className="text-3xl font-bold text-[var(--botanical)]">15g</div>
             <div className="text-gray-600">Proteína</div>
           </div>
         </div>
