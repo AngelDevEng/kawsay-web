@@ -32,7 +32,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const saved = localStorage.getItem('kawsay-cart');
     if (saved) {
-      setItems(JSON.parse(saved));
+      const parsed = JSON.parse(saved);
+      const updated = parsed.map((item: CartItem) => ({
+        ...item,
+        price: item.id === 'kawsay-pack' ? 8 : item.price,
+      }));
+      setItems(updated);
     }
     setIsLoaded(true);
   }, []);

@@ -116,7 +116,7 @@ export default function ProductSection() {
                 Snack proteico natural con 4 unidades.
               </p>
               <div className="flex items-center justify-center md:justify-start gap-4 mb-6">
-                <span className="text-3xl font-bold text-[var(--botanical)]">S/ 0.00</span>
+                <span className="text-3xl font-bold text-[var(--botanical)]">S/ 8.00</span>
                 <span className="text-gray-400 line-through">S/ 25.00</span>
               </div>
               
