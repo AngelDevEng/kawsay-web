@@ -59,7 +59,7 @@ export default function Hero() {
 
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="p-4">
-            <div className="text-3xl font-bold text-[var(--botanical)]">100%</div>
+            <div className="text-3xl font-bold text-[var(--botanical)]">98%</div>
             <div className="text-gray-600">Natural</div>
           </div>
           <div className="p-4">
